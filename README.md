@@ -7,3 +7,7 @@
 -	Ứng dụng vào bài toán thực tế: quản lý thông tin sinh viên
 -	Nhập, xuất thông tin của sinh viên, giới tính, thông tin sử dụng điện nước,...  đưa vào danh sách
 -	Hiển thị danh sách các hình sinh viên đã nhập, với thông tin khi rê vào màn hình
+- Thêm, xóa, sửa thông tin sinh viên
+- Tìm kiếm theo yêu cầu
+- Sắp xếp theo điều kiện
+- Lọc theo điều kiện
