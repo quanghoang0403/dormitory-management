@@ -14,7 +14,6 @@
   + Thêm, xóa, sửa thông tin sinh viên
   + Tìm kiếm theo yêu cầu
   + Sắp xếp theo điều kiện
-  + Lọc theo điều kiện
 - Các công nghệ, ngôn ngữ dự định sẽ sử dụng
   + Dùng lap cá nhân và internet tìm tài liệu
   + Ngôn ngữ cho phần mềm là c#
