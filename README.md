@@ -13,9 +13,9 @@
   +	Hiển thị danh sách các hình sinh viên đã nhập
   + Thêm, xóa, sửa thông tin sinh viên
   + Tìm kiếm theo yêu cầu
-     >           Ví dụ: Tìm thông tin các sinh viên chưa đóng tiền nước, tiền điện
+  >           Ví dụ: Tìm thông tin các sinh viên chưa đóng tiền nước, tiền điện
   + Sắp xếp theo điều kiện
-  >            Ví dụ: Sắp xếp các sinh viên theo số phòng
+  >           Ví dụ: Sắp xếp các sinh viên theo số phòng
 ## Các công nghệ, ngôn ngữ dự định sẽ sử dụng
 
 | Công nghệ/ Ngôn ngữ | Chức năng |
