@@ -49,7 +49,7 @@
   - Cài đặt phần mềm.
        
 **3. Tổng kết (Hoàn thành trước 14/12/2019)**
-- Hoàn thiện tất cả tính năng và chương trình.
+- Hoàn thiện tất cả tính năng, lỗi phát sinh (nếu có) và chương trình.
 - Hoàn thành báo cáo đồ án.
                 
 
