@@ -40,7 +40,7 @@
 - Xác định được yêu cầu về chức năng, hệ thống .
 - Mô hình hóa các chức năng.
 
-**2. Thiết ké, cài đặt chương trình (Hoàn thành trước 1/12/2019)**
+**2. Thiết kế, cài đặt chương trình (Hoàn thành trước 1/12/2019)**
 - Thiết kế cơ sở dữ liệu
   - Tạo bảng (bảng sinh viên, bảng khu, phòng, tiền điện nước, đăng nhập, ...)
   - Mô hình mối quan hệ giữa các bảng.
