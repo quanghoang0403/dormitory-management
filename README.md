@@ -29,4 +29,5 @@
 | ------ | ------ |
 | Lap cá nhân | Viết chương trình, tìm tài liệu trên internet |
 | C# | Lập trình các chức năng cho phần mềm|
-|Ninja mock| Phác thảo giao diện|
+| Ninja mock | Phác thảo giao diện|
+| SQL Server Management Studio (SSMS) | Quản lý cơ sở dữ liệu |
