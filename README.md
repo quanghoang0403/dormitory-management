@@ -34,13 +34,13 @@
 
 ## Roadmap
 ### Chia làm 3 giai đoạn chính 
-1. Chuẩn bị, phân tích thiết kế hệ thống (Hoàn thành trước 14/10/2019)
+**1. Chuẩn bị, phân tích thiết kế hệ thống (Hoàn thành trước 14/10/2019)**
 - Hoàn thiện toàn bộ giao diện đăng nhập, UI.
 - Làm quen với SQL Server, C#.
 - Xác định được yêu cầu về chức năng, hệ thống .
 - Mô hình hóa các chức năng.
 
-2. Thiết ké, cài đặt chương trình (Hoàn thành trước 1/12/2019)
+**2. Thiết ké, cài đặt chương trình (Hoàn thành trước 1/12/2019)**
 - Thiết kế cơ sở dữ liệu
   - Tạo bảng (bảng sinh viên, bảng khu, phòng, tiền điện nước, đăng nhập, ...)
   - Mô hình mối quan hệ giữa các bảng.
@@ -48,7 +48,7 @@
   - Thiết kế form (form giới thiệu, đăng nhập, giao diện chính, quản lý phòng, quản lý sinh viên, điện nước, tìm kiếm, thống kê,...)
   - Cài đặt phần mềm.
        
-3. Tổng kết (Hoàn thành trước 14/12/2019)
+**3. Tổng kết (Hoàn thành trước 14/12/2019)**
 - Hoàn thiện tất cả tính năng và chương trình.
 - Hoàn thành báo cáo đồ án.
                 
