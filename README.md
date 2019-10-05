@@ -50,7 +50,7 @@
 - Thiết kế phần mềm 
   - Thiết kế form (form giới thiệu, đăng nhập, giao diện chính, quản lý phòng, quản lý sinh viên, điện nước, tìm kiếm, thống kê,...)
   - Cài đặt phần mềm.
- - Thời gian chi tiết hoàn thành đồ án
+- Thời gian chi tiết hoàn thành đồ án
   - Trước ngày 27/10/2019: Thiết kế form và cài đặt bảng đăng nhập, trang chủ.
   - Trước ngày 10/11/2019: Thiết kế form và cài đặt chức năng tìm kiếm phòng ở, danh sách và loại phòng. 
   - Trước ngày 24/11/2019: Thiết kế form và cài đặt chức năng quản lí sinh viên gồm các chức năng tìm kiếm, thêm sinh viên bằng họ tên, MSSV, trường, ngày sinh,..
