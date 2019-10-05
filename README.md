@@ -37,18 +37,25 @@
 **1. Chuẩn bị, phân tích thiết kế hệ thống (Hoàn thành trước 14/10/2019)**
 - Hoàn thiện toàn bộ giao diện đăng nhập, UI.
 - Làm quen với SQL Server, C#.
-- Xác định được yêu cầu về chức năng, hệ thống .
+- Xác định được yêu cầu về chức năng, hệ thống, khảo sát bài toán.
+  - Tiếp cận với nghiệp vụ chuyên môn, môi trường hoạt động của hệ thống.
+  - Tìm hiểu chức năng, nhiệm vụ và cách hoạt động của hệ thống.
+  - Chỉ ra những chỗ hợp lý của hệ thống và các chỗ chưa hợp lý cần được nghiên cứu đưa ra cách khắc phục.
 - Mô hình hóa các chức năng.
 
-**2. Thiết kế, cài đặt chương trình (Hoàn thành trước 1/12/2019)**
+**2. Thiết kế, cài đặt chương trình (Hoàn thành trước 8/12/2019)**
 - Thiết kế cơ sở dữ liệu
   - Tạo bảng (bảng sinh viên, bảng khu, phòng, tiền điện nước, đăng nhập, ...)
   - Mô hình mối quan hệ giữa các bảng.
 - Thiết kế phần mềm 
   - Thiết kế form (form giới thiệu, đăng nhập, giao diện chính, quản lý phòng, quản lý sinh viên, điện nước, tìm kiếm, thống kê,...)
   - Cài đặt phần mềm.
-       
-**3. Tổng kết (Hoàn thành trước 14/12/2019)**
+ - Thời gian chi tiết hoàn thành đồ án
+  - Trước ngày 27/10/2019: Thiết kế form và cài đặt bảng đăng nhập, trang chủ.
+  - Trước ngày 10/11/2019: Thiết kế form và cài đặt chức năng tìm kiếm phòng ở, danh sách và loại phòng. 
+  - Trước ngày 24/11/2019: Thiết kế form và cài đặt chức năng quản lí sinh viên gồm các chức năng tìm kiếm, thêm sinh viên bằng họ tên, MSSV, trường, ngày sinh,..
+  - Trước ngày 8/12/2019: Thiết kế form và cài đặt hóa đơn điện nước và các chức năng cuối cùng được bổ sung.
+**3. Tổng kết (Hoàn thành trước 15/12/2019)**
 - Hoàn thiện tất cả tính năng, lỗi phát sinh (nếu có) và chương trình.
 - Hoàn thành báo cáo đồ án.
                 
