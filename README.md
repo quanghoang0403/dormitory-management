@@ -55,6 +55,7 @@
   - Trước ngày 10/11/2019: Thiết kế form và cài đặt chức năng tìm kiếm phòng ở, danh sách và loại phòng. 
   - Trước ngày 24/11/2019: Thiết kế form và cài đặt chức năng quản lí sinh viên gồm các chức năng tìm kiếm, thêm sinh viên bằng họ tên, MSSV, trường, ngày sinh,..
   - Trước ngày 8/12/2019: Thiết kế form và cài đặt hóa đơn điện nước và các chức năng cuối cùng được bổ sung.
+ 
 **3. Tổng kết (Hoàn thành trước 15/12/2019)**
 - Hoàn thiện tất cả tính năng, lỗi phát sinh (nếu có) và chương trình.
 - Hoàn thành báo cáo đồ án.
