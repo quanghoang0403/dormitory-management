@@ -58,7 +58,7 @@
  
 **3. Tổng kết (Hoàn thành trước 15/12/2019)**
 - Hoàn thiện tất cả tính năng, lỗi phát sinh (nếu có) và chương trình.
-- Hoàn thành báo cáo đồ asnn.
+- Hoàn thành báo cáo đồ án.
                 
 
 
