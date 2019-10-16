@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +45,117 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acount.cs" />
+    <Compile Include="Anh.cs" />
+    <Compile Include="chat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="chat.Designer.cs">
+      <DependentUpon>chat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Danhsachphongo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Danhsachphongo.Designer.cs">
+      <DependentUpon>Danhsachphongo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form6.Designer.cs">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDangNhap.Designer.cs">
+      <DependentUpon>FormDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDanhsachphongo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDanhsachphongo.Designer.cs">
+      <DependentUpon>FormDanhsachphongo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrangChu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrangChu.Designer.cs">
+      <DependentUpon>FormTrangChu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDangNhap.Designer.cs">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDoiMatKhau.Designer.cs">
+      <DependentUpon>frmDoiMatKhau.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hoadon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hoadon.Designer.cs">
+      <DependentUpon>Hoadon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Nhandulieu.cs" />
+    <Compile Include="Nhanvien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nhanvien.Designer.cs">
+      <DependentUpon>Nhanvien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serial.cs" />
+    <Compile Include="Sinhvien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sinhvien.Designer.cs">
+      <DependentUpon>Sinhvien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TKB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TKB.Designer.cs">
+      <DependentUpon>TKB.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormDangNhap.resx">
+      <DependentUpon>FormDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDanhSachPhongo.resx">
+      <DependentUpon>FormDanhsachphongo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrangChu.resx">
+      <DependentUpon>FormTrangChu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDangNhap.resx">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDoiMatKhau.resx">
+      <DependentUpon>frmDoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
