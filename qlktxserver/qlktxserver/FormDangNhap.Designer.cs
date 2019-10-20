@@ -1,4 +1,4 @@
-﻿namespace qlktxserver
+﻿namespace QLKTX
 {
     partial class FormDangNhap
     {

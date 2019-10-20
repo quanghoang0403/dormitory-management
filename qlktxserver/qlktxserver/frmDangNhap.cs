@@ -23,22 +23,6 @@ namespace qlktxserver
         public static bool a = false;
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            string username = txtTenDN.Text;
-            string password = txtMatKhau.Text;
-            if (true)
-            {
-
-                // FormTrangChu mi = new FormTrangChu();
-                //  mi.Show();
-                FormDangNhap mi = new FormDangNhap();
-                mi.Show();
-
-            }
-            else
-            {
-                MessageBox.Show("sai ten hoac pass!");
-            }
-
 
         }
         public bool check()
@@ -53,10 +37,7 @@ namespace qlktxserver
         }
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn muốn thoát", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                this.Close();
-            }
+
         }
 
         private void frmDangNhap_Load(object sender, EventArgs e)
@@ -74,7 +55,7 @@ namespace qlktxserver
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
