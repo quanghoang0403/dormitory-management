@@ -162,6 +162,12 @@
     <EmbeddedResource Include="frmDoiMatKhau.resx">
       <DependentUpon>frmDoiMatKhau.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sinhvien.resx">
+      <DependentUpon>Sinhvien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TKB.resx">
+      <DependentUpon>TKB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
