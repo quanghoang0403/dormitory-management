@@ -156,6 +156,8 @@ namespace QLKTX
             tkb1.Visible = false;
            
         }
+
+        /*
         private void FormTrangChu_Load(object sender, EventArgs e)
         {
             
@@ -169,7 +171,7 @@ namespace QLKTX
             chat minh5 = new chat();
             minh5.Connect();
            
-        }
+        }*/
         public byte[] ImageToByteArray1(Image image, string extension)
         {
             using (var memoryStream = new MemoryStream())
@@ -226,6 +228,11 @@ namespace QLKTX
             danhsachphongo1.Visible = false;
             hoadon1.Visible = false;
             tkb1.Visible = true;
+        }
+
+        private void FormTrangChu_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

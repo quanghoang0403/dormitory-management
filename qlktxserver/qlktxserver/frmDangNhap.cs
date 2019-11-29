@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,24 +20,44 @@ namespace qlktxserver
             InitializeComponent();
         }
 
-        public static bool a = false;
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+            try
+            {
+                conn.Open();
+                string tk = txtTenDN.Text;
+                string mk = txtMatKhau.Text;
+                string sql = "SELECT *FROM ACCOUNT WHERE USERNAME='" + tk + "' and PASS='" + mk + "'";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader dta = cmd.ExecuteReader();
+                if (dta.Read() == true)
+                {
+                    MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FormDangNhap mi = new FormDangNhap();
+                    mi.Show();
+                    conn.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu, vui lòng nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Show();
+                }
 
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi kết nối");
+            }
         }
-        public bool check()
-        {
-            return a;
-        }
-        public bool Login(string username, string password)
-        {
-            return true;
-            // return Acount.Instance.Login(username, password);
 
-        }
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Bạn có chắc chắn muốn thoát", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void frmDangNhap_Load(object sender, EventArgs e)
@@ -55,7 +75,17 @@ namespace qlktxserver
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTenDN_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTenDN_TextChanged_1(object sender, EventArgs e)
         {
 
         }
