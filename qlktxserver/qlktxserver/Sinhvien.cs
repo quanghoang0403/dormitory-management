@@ -16,90 +16,173 @@ namespace qlktxserver
         public Sinhvien()
         {
             InitializeComponent();
-            // Hienthi();
         }
-        SqlConnection connect;
         public void Hienthi()
         {
             string query = "SELECT * FROM dbo.SINHVIEN";
-            DataProvider load = new DataProvider();
-            dataGridView1.DataSource = load.ExecuteQuery(query);
+            dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
         }
         private void Sinhvien_Load(object sender, EventArgs e)
         {
-            //Hienthi();
-            //string connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=QL;Integrated Security=True";
-            //connect = new SqlConnection(connection);
-            //connect.Open();
+            Hienthi();
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "") MessageBox.Show("MSSV, Họ Tên , SĐT Không thể Trống ", "?", MessageBoxButtons.OK);
+            if (textBox2.Text == "" || comboBox3.Text == "" || textBox1.Text == "" || dateTimePicker1.Text == "" || textBox8.Text == "" || textBox5.Text == "" || textBox3.Text == "")
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin");
             else
             {
-                string query = "INSERT INTO dbo.SINHVIEN(MSSV,HoTenSV,GioiTinh,NgaySinh,SDT,QueQuan,MaPHG,MaCLB) VALUES( @MSSV , @HoTenSV , @GioiTinh , @NgaySinh , @SDT , @QueQuan , @MaPHG , @MaCLB )";
-                DataProvider load = new DataProvider();
-                load.ExecuteNonQuery(query, new object[] { textBox1.Text, textBox2.Text, comboBox3.SelectedItem.ToString(), dateTimePicker1.Text, textBox3.Text, textBox5.Text, comboBox1.Text, textBox4.Text });
-                //  string queryTim = "INSERT INTO dbo.SINHVIEN(MSSV,HoTenSV,SDT,QueQuan,MaPHG,MaCLB) VALUES( @MSSV ,@HoTenSV ,@SDT ,@QueQuan ,@MaPHG ,@MaCLB )";
-                //  //  string queryTim = "SELECT * FROM dbo.NHANVIEN WHERE HoTenNV=N'" + textBox2.Text +"'";
-                //  SqlCommand cmd = new SqlCommand(queryTim, connect);
-                //  cmd.Parameters.AddWithValue("MSSV", textBox1.Text);
-                //  cmd.Parameters.AddWithValue("HoTenSV", textBox2.Text);
-                ////  cmd.Parameters.AddWithValue("GioiTinh","N");
-                ////  cmd.Parameters.AddWithValue("NgaySinh", "2000-03-12 00:00:00.000");
-                //  cmd.Parameters.AddWithValue("SDT", textBox3.Text);
-                //  cmd.Parameters.AddWithValue("QueQuan", textBox5.Text);
-                //  cmd.Parameters.AddWithValue("MaPHG", comboBox1.Text);
-                //  cmd.Parameters.AddWithValue("MaCLB", textBox4.Text);
-                //  cmd.ExecuteNonQuery();
-
-
-                Hienthi();
-                Set();
+                SqlConnection conn2 = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                conn2.Open();
+                string kiemtra2 = string.Format("SELECT *FROM PHONG WHERE (MAPHG = {0} AND TONGSV < SLMAX) ", textBox3.Text);
+                SqlCommand cmd2 = new SqlCommand(kiemtra2, conn2);
+                SqlDataReader dta2 = cmd2.ExecuteReader();
+                if (dta2.Read() == true)
+                {
+                    conn2.Close();
+                    string query = "INSERT into SINHVIEN VALUES ('" + textBox2.Text + "', '" + comboBox3.Text + "', '" + dateTimePicker1.Text + "', '" + textBox1.Text + "', '" + textBox5.Text + "', '" + textBox8.Text + "', '" + textBox3.Text + "')";
+                    dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+                    MessageBox.Show("Thêm thành công");
+                    Hienthi();
+                }
+                else
+                {
+                    MessageBox.Show("Phòng đã full, vui lòng nhập phòng khác!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    conn2.Close();
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "") MessageBox.Show("Bạn Chưa Nhập MSSV", "?", MessageBoxButtons.OK);
-            else
+            string query = "SELECT * FROM SINHVIEN";
+            string dk = "";
+            //Tim theo MANV khac rong
+            if (textBox4.Text.Trim() != "")
             {
-                string query = "UPDATE dbo.SINHVIEN SET HoTenSV= @HoTenSV ,SDT= @SDT ,QueQuan= @QueQuan ,MaPHG= @MaPHG ,MaCLB= @MaCLB  WHERE MSSV= @MSSV ";
-                DataProvider load = new DataProvider();
-                load.ExecuteNonQuery(query, new object[] { textBox2.Text, textBox3.Text, textBox5.Text, comboBox1.Text, textBox4.Text, textBox1.Text });
-                Hienthi();
-                Set();
-
+                dk += " MASV like '%" + textBox4.Text + "%'";
             }
+            //kiem tra TenSP va MaSP khac rong
+            if (textBox4.Text.Trim() != "" && dk != "")
+            {
+                dk += " AND TENSV like N'%" + textBox6.Text + "%'";
+            }
+            //Tim kiem theo TenSP khi MaSP la rong
+            if (textBox6.Text.Trim() != "" && dk == "")
+            {
+                dk += " TENSV like N'%" + textBox6.Text + "%'";
+            }
+            //Ket hoi dk
+            if (dk != "")
+            {
+                query += " WHERE" + dk;
+            }
+
+
+            //string query = "SELECT *FROM dbo.NHANVIEN WHERE MANV like '%" + textBox1.Text + "%'";
+            dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
         }
-        void Set()
-        {
-            textBox1.Text = "";
-            textBox2.Text = "";
-            textBox3.Text = "";
-            textBox5.Text = "";
-            comboBox1.Text = "";
-            textBox4.Text = "";
-        }
+
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "") MessageBox.Show("Bạn Chưa Nhập MSSV", "?", MessageBoxButtons.OK);
-            else
+            if (textBox7.Text != "")
             {
-                string query = "DELETE FROM dbo.SINHVIEN  WHERE MSSV= @MSSV ";
-                DataProvider load = new DataProvider();
-                load.ExecuteNonQuery(query, new object[] { textBox1.Text });
-                Hienthi();
-                Set();
+                DialogResult DialogResult = MessageBox.Show("Bạn có chắc muốn xóa!", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (DialogResult == DialogResult.OK)
+                {
+                    SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                    try
+                    {
+                        conn.Open();
+                        string kiemtra = string.Format("SELECT *FROM SINHVIEN WHERE MASV = {0}", textBox7.Text);
+                        SqlCommand cmd = new SqlCommand(kiemtra, conn);
+                        SqlDataReader dta = cmd.ExecuteReader();
+                        if (dta.Read() == true)
+                        {
+                            conn.Close();
+                            string query = string.Format("DELETE SINHVIEN WHERE MASV = {0}", textBox7.Text);
+                            int result = DataProvider.Instance.ExecuteNonQuery(query);
+                            MessageBox.Show("Xóa thành công");
+                            Hienthi();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy mã sinh viên cần xóa, vui lòng nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            conn.Close();
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Lỗi kết nối");
+                    }
+                }
             }
+            else
+                MessageBox.Show("Vui lòng điền mã sinh viên cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void TextBox4_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+     
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Hienthi();
         }
     }
 }
