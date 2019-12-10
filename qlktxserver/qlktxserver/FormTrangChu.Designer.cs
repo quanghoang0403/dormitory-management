@@ -1,103 +1,217 @@
-﻿namespace QLKTX
+﻿using qlktxserver;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace QLKTX
 {
-    partial class FormTrangChu
+    public partial class FormTrangChu : Form
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        public FormTrangChu()
         {
-            if (disposing && (components != null))
+            InitializeComponent();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            Process myProcess = new Process();
+            try
             {
-                components.Dispose();
+                myProcess.StartInfo.UseShellExecute = true;
+                myProcess.StartInfo.FileName = "http://ktx.vnuhcm.edu.vn/";
+                myProcess.Start();
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
+        private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            this.SuspendLayout();
-            // 
-            // FormTrangChu
-            // 
-            this.ClientSize = new System.Drawing.Size(954, 538);
-            this.Name = "FormTrangChu";
-            this.Load += new System.EventHandler(this.FormTrangChu_Load_1);
-            this.ResumeLayout(false);
+           
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            frmDoiMatKhau FormDoiMatKhau = new frmDoiMatKhau();
+            FormDoiMatKhau.Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
 
         }
 
-        #endregion
+        private void tableLayoutPanel2_Paint_1(object sender, PaintEventArgs e)
+        {
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ngườiDùngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thôngTinCơBảnToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sinhViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tìmHồSơSinhViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thêmSinhViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem danhSáchTrườngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem danhSáchLàmLạiThẻToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem danhSáchSinhViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem thuêPhòngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem xếpPhòngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem chụpHìnhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lịchSửChuyểnPhòngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hóaĐơnToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thuPhíNộiTrúToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem danhSáchThuBHYTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thiếtLậpHọcKìToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem quảnLýVậtTưToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem quảnLýYTếToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem phiếuKhámBệnhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem danhMụcToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trợGiúpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem chatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thoátToolStripMenuItem;
-        private qlktxserver.chat chat1;
-        private System.Windows.Forms.ToolStripMenuItem hệThốngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nhânViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem trợGiupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private qlktxserver.Nhanvien nhanvien1;
-        private qlktxserver.Hoadon hoadon1;
-        private qlktxserver.Sinhvien sinhvien1;
-        private qlktxserver.Danhsachphongo danhsachphongo1;
-        private qLKTX.Control_UI.TKB tkb1;
+        }
+
+
+        private void toolStripMenuItem9_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void hóaĐơnToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+        }
+
+        private void sinhViênToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void hệThốngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                hoadon1.Visible = false;
+                nhanvien1.Visible = false;
+                sinhvien1.Visible = false;
+                danhsachphongo1.Visible = true;
+                tkb1.Visible = false;
+
+        }
+
+        private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hoadon1.Visible = false;
+            nhanvien1.Visible = true;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            tkb1.Visible = false;
+        }
+
+        private void sinhViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hoadon1.Visible = false;
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = true;
+            danhsachphongo1.Visible = false;
+            tkb1.Visible = false;
+        }
+
+        private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hoadon1.Visible = true;
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            tkb1.Visible = false;
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+      public  void Thoat()
+        {
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            hoadon1.Visible = true;
+            tkb1.Visible = false;
+           
+        }
+        private void FormTrangChu_Load(object sender, EventArgs e)
+        {
+        }
+        public byte[] ImageToByteArray1(Image image, string extension)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                switch (extension)
+                {
+                    case ".jpeg":
+                    case ".jpg":
+                        image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+                    case ".png":
+                        image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
+                    case ".gif":
+                        image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Gif);
+                        break;
+                }
+                return memoryStream.ToArray();
+            }
+        }
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        {
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            hoadon1.Visible = false;
+            tkb1.Visible = false;
+        }
+
+        private void chat1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void danhsachphongo1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            var dlgResult = MessageBox.Show("Bạn Thực Sự Muốn Thoát Chương Trình ?", "?", MessageBoxButtons.YesNo);
+            if (dlgResult == System.Windows.Forms.DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            
+        }
+
+        private void trợGiupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            hoadon1.Visible = false;
+            tkb1.Visible = false;
+        }
+
+        private void tkb1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+            frmDangKy FormDangKy = new frmDangKy();
+            FormDangKy.Show();
+        }
     }
 }
