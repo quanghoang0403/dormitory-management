@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -61,8 +60,7 @@ namespace qLKTX.Control_UI
                 for (int j = 0; j < 7; j++)
                 {
                     Button BtnNew = new Button() { Width = 62, Height = 30, Location = new Point(Btn.Location.X + 62, Btn.Location.Y) };
-                    BtnNew.Click += BtnNew_Click;
-                    BtnNew.BackColor = Color.Blue;
+                    BtnNew.BackColor = Color.AntiqueWhite;
                     BtnNew.ForeColor = Color.Black;
 
                     panel1.Controls.Add(BtnNew);
@@ -76,19 +74,6 @@ namespace qLKTX.Control_UI
             SetDefaultDate();
             //  AddNumberintoMatrixbyDate(dateTimePicker1.Value);
 
-        }
-
-        void BtnNew_Click(object Sender, EventArgs e)
-        {
-            //   minh daily = new minh(new DateTime(dateTimePicker1.Value.Year,dateTimePicker1.Value.Month,Convert.ToInt32((Sender as Button).Text)),Job);
-            //  panel3.Controls.Add(daily);
-            //  daily.Show();
-            Form2 m = new Form2(dateTimePicker1.Value);
-            m.Show();
-            //   daily.Show();
-            //  panel3.Controls.Add(m);
-            // panel3.Show();
-            // MessageBox.Show("sdf");
         }
 
         void AddNumberintoMatrixbyDate(DateTime date)
@@ -130,7 +115,7 @@ namespace qLKTX.Control_UI
                 {
                     Button btn = Matrix[i][j];
                     btn.Text = "";
-                    btn.BackColor = Color.Blue;
+                    btn.BackColor = Color.AliceBlue;
                     // btn.BackColor = Color.WhiteSmoke;
                 }
             }
@@ -149,11 +134,6 @@ namespace qLKTX.Control_UI
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
