@@ -1,25 +1,51 @@
-
 CREATE DATABASE QuanLyKTX
 go
 
 USE QuanLyKTX
 go
 
---ACCOUNT
---SINHVIEN
---PHONG
---NHANVIEN
---HOADON
 
 CREATE TABLE ACCOUNT
 (
-	ID INT IDENTITY PRIMARY KEY,
-	DISPLAYNAME NVARCHAR(100) NOT NULL,
+	id_user INT IDENTITY PRIMARY KEY,
+	name_user NVARCHAR(100) NOT NULL,
 	USERNAME NVARCHAR(100) NOT NULL,
 	PASS NVARCHAR(1000) NOT NULL,
+)
+GO
 
-	CHUCVU INT NOT NULL,
 
+
+CREATE TABLE tbl_permision
+(
+	id_per INT IDENTITY PRIMARY KEY,
+	name_per NVARCHAR(100) NOT NULL,
+	descriptionn NVARCHAR(100) NOT NULL,
+)
+GO
+
+CREATE TABLE tbl_permision_detail
+(
+	id_pd INT IDENTITY PRIMARY KEY,
+	name_action NVARCHAR(100) NOT NULL,
+	code_action VARCHAR(50) NOT NULL,
+	id_per INT NOT NULL,
+
+	
+	FOREIGN KEY (id_per) REFERENCES DBO.tbl_permision(id_per),
+)
+GO
+
+CREATE TABLE tbl_per_relationship
+(
+	id_rel INT IDENTITY PRIMARY KEY,
+	id_user_rel INT NOT NULL,
+	id_per_rel INT NOT NULL,
+	suspended BIT NOT NULL,
+
+	FOREIGN KEY (id_user_rel) REFERENCES dbo.ACCOUNT (id_user),
+
+	FOREIGN KEY (id_per_rel ) REFERENCES dbo.tbl_permision (id_per),
 )
 GO
 
@@ -39,8 +65,7 @@ GO
 
 
 
-)
-GO
+
 
 
 CREATE TABLE PHONG
@@ -66,9 +91,7 @@ CREATE TABLE SINHVIEN
 	NGAYSINH DATE NOT NULL,
 	SDTSV NVARCHAR(100) NOT NULL,
 	QUEQUAN NVARCHAR(100) NOT NULL,
-
 	TRUONG NVARCHAR(100) NOT NULL,
-
 	MAPHG INT NOT NULL,
 
 	FOREIGN KEY (MAPHG) REFERENCES DBO.PHONG(MAPHG)
@@ -81,13 +104,13 @@ CREATE TABLE HOADON
 	MAHD INT IDENTITY PRIMARY KEY,
 	CHISONUOC INT NOT NULL,
 	CHISODIEN INT NOT NULL,
-
 	THANG INT NOT NULL,
 	NAM INT NOT NULL,
-	NGAYTHANHTOAN DATE,
-	TONGTIEN INT NOT NULL,
-
+	TONGTIEN  MONEY,
 	MAPHG INT NOT NULL,
+	TINHTRANGHD NVARCHAR(100) NOT NULL,
+	GIANUOC INT NOT NULL,
+	GIADIEN INT NOT NULL,
 
 	FOREIGN KEY (MAPHG) REFERENCES DBO.PHONG(MAPHG) 
 )
@@ -145,7 +168,7 @@ BEGIN
 	SET TONGSV=TONGSV-1
 	WHERE PHONG.MAPHG=@MAPHGC
 END
-ENABLE TRIGGER SV_TONGSV_SUA ON SINHVIEN
+ENABLE TRIGGER SV_TONGGSV_SUA ON SINHVIEN
 
 CREATE TRIGGER PHG_SLPHONGQL_THEM
 ON PHONG AFTER INSERT AS 
@@ -181,38 +204,37 @@ BEGIN
 	SET SLPHONGQL=SLPHONGQL-1
 	WHERE NHANVIEN.MANV=@MANVC
 END
-ENABLE TRIGGER PHG_TONGSV_SUA ON PHONG
+ENABLE TRIGGER PHG_TONGGSV_SUA ON PHONG
 
-INSERT INTO DBO.ACCOUNT
-		(USERNAME ,
-		 DISPLAYNAME ,
-		 PASS ,
-		 CHUCVU
-		)
-VALUES  (N'admin' ,
-		 N'admin' ,
-		 N'admin' ,
-		 N'0' )
-go
+INSERT INTO dbo.ACCOUNT VALUES ('Tran Phuong Duy','admin','33354741122871651676713774147412831195')
+INSERT INTO dbo.ACCOUNT VALUES ('Chung Thai Dung','nhanvien','4247164254471675524141239451812313427126')
+INSERT INTO dbo.ACCOUNT VALUES ('Dinh Quang Hoang','laocong','161521619193107152151209437815512424974217')
 
-INSERT INTO DBO.ACCOUNT
-		(USERNAME ,
-		 DISPLAYNAME ,
-		 PASS ,
-		 CHUCVU
-		)
-VALUES  (N'nhanvien' ,
-		 N'nhanvien' ,
-		 N'nhanvien' ,
-		 N'0' )
-go
+INSERT INTO dbo.tbl_permision VALUES ('Quan tri', 'Quyen con nhat')
+INSERT INTO dbo.tbl_permision VALUES ('Nhan vien', 'Quyen gioi han')
+INSERT INTO dbo.tbl_permision VALUES ('Vi tri khac', 'Quyen chi duoc coi')
+
+INSERT INTO dbo.tbl_per_relationship VALUES ('1', '1' , 'False')
+INSERT INTO dbo.tbl_per_relationship VALUES ('2', '2' , 'False')
+INSERT INTO dbo.tbl_per_relationship VALUES ('3', '3' , 'False')
+
+INSERT INTO dbo.tbl_permision_detail VALUES ('THEM', 'ADD' , '1')
+INSERT INTO dbo.tbl_permision_detail VALUES ('SUA', 'EDIT' , '1')
+INSERT INTO dbo.tbl_permision_detail VALUES ('XOA', 'DELETE' , '1')
+INSERT INTO dbo.tbl_permision_detail VALUES ('THEM', 'ADD' , '2')
+INSERT INTO dbo.tbl_permision_detail VALUES ('SUA', 'EDIT' , '2')
+INSERT INTO dbo.tbl_permision_detail VALUES ('XOA', 'DELETE' , '2')
+INSERT INTO dbo.tbl_permision_detail VALUES ('them', 'AD' , '1')
+INSERT INTO dbo.tbl_permision_detail VALUES ('sua', 'EDI' , '1')
+INSERT INTO dbo.tbl_permision_detail VALUES ('xoa', 'DELET' , '1')
 
 
-INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Nhu Nhut','nam','2001-07-22','048823451','BienHoa','2019-7-24','Nhan vien','0')
-INSERT INTO dbo.NHANVIEN VALUES ( 'Le Thi Phi Yen', 'nu','1999-07-30','098256478','DakLak','2018-07-30','Quan Ly','0')
-INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Van B', 'nu','2002-05-08','0938776266', 'HCM','2019-11-24','Nhan vien','0')
-INSERT INTO dbo.NHANVIEN VALUES ( 'Ngo Thanh Tuan', 'nam','2000-10-28','082476108','Hanoi','2019-5-24','Nhan vien','0')
-INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Thi Truc Thanh','nu','1999-11-24','086731738','BienHoa','2019-6-24','Nhan vien','0')
+
+INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Nhu Nhut','nam','2001-07-22','048823451','BienHoa','2019-7-24','Van phong','0')
+INSERT INTO dbo.NHANVIEN VALUES ( 'Le Thi Phi Yen', 'nu','1999-07-30','098256478','DakLak','2018-07-30','Quan ly','0')
+INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Van B', 'nu','2002-05-08','0938776266', 'HCM','2019-11-24','Bao ve','0')
+INSERT INTO dbo.NHANVIEN VALUES ( 'Ngo Thanh Tuan', 'nam','2000-10-28','082476108','Hanoi','2019-5-24','Lao cong','0')
+INSERT INTO dbo.NHANVIEN VALUES ( 'Nguyen Thi Truc Thanh','nu','1999-11-24','086731738','BienHoa','2019-6-24','Lao cong','0')
 
 INSERT INTO dbo.PHONG VALUES ( 'VIP','4', '0', 'Dang su dung' , 'A' , '1')
 INSERT INTO dbo.PHONG VALUES ( 'VIP','2', '0', 'Dang su dung' , 'A' , '1')
@@ -230,6 +252,7 @@ INSERT INTO dbo.PHONG VALUES ( 'THUONG','6', '0', 'Trong' , 'E' , '5')
 INSERT INTO dbo.PHONG VALUES ( 'THUONG','8', '0', 'Dang su dung' , 'E' , '5')
 INSERT INTO dbo.PHONG VALUES ( 'THUONG','8', '0', 'Trong' , 'E' , '5')
 
+set IDENTITY_INSERT SINHVIEN off
 insert into SINHVIEN  values('Cao Van Minh','nam','2001-07-22','048823451','BienHoa','UEL','1')
 insert into SINHVIEN  values('Tran Ngoc Hien','nu','1999-07-30','098256478','AnGiang','UIT','1')
 insert into SINHVIEN  values('Dinh Ngoc Linh','nu','2002-05-08','0938776266', 'PhanThiet','UEL','2')
@@ -265,6 +288,64 @@ insert into SINHVIEN  values('Le Hoai Thu','nu','1998-11-24','086731738','GiaLai
 insert into SINHVIEN  values('Nguyen Van Tam','nam','1999-12-01','0916783565','VungTau','UEL','15')
 
 
+INSERT INTO HOADON VALUES ( '25','4', '5', '2019', 0 , '1','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','8', '6', '2019', 0 , '1','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','0', '7', '2019', 0 , '1','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '34','3', '8', '2019', 0 , '1','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','2', '9', '2019', 0 , '1','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','2', '10', '2019', 0 , '1','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','2', '5', '2019', 0 , '2','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '28','2', '6', '2019', 0 , '2','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '7', '2019', 0 , '2','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '24','3', '8', '2019', 0 , '2','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '34','3', '9', '2019', 0 , '2','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '10', '2019', 0 , '2','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','2', '5', '2019', 0 , '4','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','2', '6', '2019', 0 , '4','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '7', '2019', 0 , '4','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '24','2', '8', '2019', 0 , '4','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '34','3', '9', '2019', 0 , '4','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '35','2', '10', '2019', 0 , '4','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','2', '5', '2019', 0 , '6','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '28','3', '6', '2019', 0 , '6','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','2', '7', '2019', 0 , '6','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','2', '8', '2019', 0 , '6','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '33','3', '9', '2019', 0 , '6','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','3', '10', '2019', 0 , '6','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '5', '2019', 0 , '7','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '28','3', '6', '2019', 0 , '7','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '7', '2019', 0 , '7','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '8', '2019', 0 , '7','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '24','2', '9', '2019', 0 , '7','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '36','2', '10', '2019', 0 , '7','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','2', '5', '2019', 0 , '9','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','2', '6', '2019', 0 , '9','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '34','3', '7', '2019', 0 , '9','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','3', '8', '2019', 0 , '9','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '25','3', '9', '2019', 0 , '9','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '10', '2019', 0 , '9','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','3', '5', '2019', 0 , '10','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '32','2', '6', '2019', 0 , '10','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '33','2', '7', '2019', 0 , '10','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '36','2', '8', '2019', 0 , '10','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','2', '9', '2019', 0 , '10','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '32','2', '10', '2019', 0 , '10','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '5', '2019', 0 , '12','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '29','3', '6', '2019', 0 , '12','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '33','3', '7', '2019', 0 , '12','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '34','3', '8', '2019', 0 , '12','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '32','2', '9', '2019', 0 , '12','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','3', '10', '2019', 0 , '12','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '33','3', '5', '2019', 0 , '14','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '24','3', '6', '2019', 0 , '14','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '26','2', '7', '2019', 0 , '14','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '27','3', '8', '2019', 0 , '14','Dang thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '29','2', '9', '2019', 0 , '14','Chua thanh toan', 2000, 3000)
+INSERT INTO HOADON VALUES ( '30','3', '10', '2019', 0 , '14','Dang thanh toan', 2000, 3000)
 
+UPDATE HOADON
+SET TONGTIEN = CHISONUOC * GIANUOC + CHISODIEN * GIADIEN
+WHERE TONGTIEN >= 0
 
-
+CREATE PROC USP_PhongList
+AS SELECT * FROM dbo.PHONG

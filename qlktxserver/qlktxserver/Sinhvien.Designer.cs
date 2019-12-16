@@ -1,4 +1,4 @@
-﻿namespace qlktxserver
+namespace qlktxserver
 {
     partial class Sinhvien
     {

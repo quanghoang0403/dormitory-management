@@ -20,7 +20,7 @@ namespace qlktxserver
         {
             InitializeComponent();
         }
-        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-KDA1585N\\DONSQL;Initial Catalog=QuanLyKTX;Integrated Security=True");
+        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
 
         private string getID()
         {
