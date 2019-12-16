@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace qlktxserver
 {
@@ -19,8 +20,8 @@ namespace qlktxserver
             InitializeComponent();
             ID.Visible = false;
             butt_back.Visible = false;
-        }
-        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+        }        
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
         string UID = frmDangNhap.ID_User;
         private string id_per()
         {
@@ -97,6 +98,25 @@ namespace qlktxserver
         {
             string query = "SELECT * FROM dbo.NHANVIEN";
             dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+            if (checkper("AD") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button6.BackColor = Color.Silver;
+            }
+            if (checkper("DELET") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button1.BackColor = Color.Silver;
+
+            }
+            if (checkper("EDI") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                butt_update.BackColor = Color.Silver;
+            }
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -126,6 +146,7 @@ namespace qlktxserver
              
             //string query = "SELECT *FROM dbo.NHANVIEN WHERE MANV like '%" + textBox1.Text + "%'";
             dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+           
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -224,7 +245,7 @@ namespace qlktxserver
                     DialogResult DialogResult = MessageBox.Show("Bạn có chắc muốn xóa!", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     if (DialogResult == DialogResult.OK)
                     {
-                        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
                             conn.Open();
                             string kiemtra = string.Format("SELECT *FROM NHANVIEN WHERE (MANV = {0} AND SLPHONGQL = 0)", textBox7.Text);
                             SqlCommand cmd = new SqlCommand(kiemtra, conn);
@@ -355,14 +376,22 @@ namespace qlktxserver
         }
         private void butt_sua_Click(object sender, EventArgs e)
         {
-            if (checkper("EDI") == true || ID.Text != "")
+            if (checkper("EDI") == true )
             {
-                //MessageBox.Show("Bạn có quyền sửa nhân viên ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dataGridView1.Enabled = false;
-                Enable();
-                button = "edit";
-                butt_save.BringToFront();
-                butt_update.Enabled = false;
+                if (ID.Text != "")
+                {
+                    //MessageBox.Show("Bạn có quyền sửa nhân viên ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridView1.Enabled = false;
+                    Enable();
+                    button = "edit";
+                    butt_save.BringToFront();
+                    butt_update.Enabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn nhân viên để sửa ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Unable();
+                }
             }
             else
             {

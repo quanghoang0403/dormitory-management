@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using iTextSharp.text.pdf;
+using System.IO;
+using iTextSharp.text;
+using System.Configuration;
 
 namespace qlktxserver
 {
@@ -22,7 +26,7 @@ namespace qlktxserver
             button3.Visible = false;
             Unable();
         }
-        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
         string UID = frmDangNhap.ID_User;
         private string id_per()
         {
@@ -151,6 +155,20 @@ namespace qlktxserver
                 
                 flowLayoutPanel1.Controls.Add(btn);
             }
+
+            if (checkper("ADD") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button4.BackColor = Color.Silver;
+            }
+
+            if (checkper("EDIT") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button2.BackColor = Color.Silver;
+            }
         }
 
         void show_Hoadon(int maphong)
@@ -269,44 +287,85 @@ namespace qlktxserver
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string oldcsNuoc;
+            string oldcsDien;
             if (textBox2.Text == "" || textBox5.Text == "" || comboBox4.Text == "" || comboBox5.Text == "" || comboBox1.Text == "" || comboBox3.Text == "" || comboBox3.Text == "" || textBox1.Text == "")
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin");
             else
             {
+                int thangmoi = Convert.ToInt32(comboBox1.Text);
+                int thangcu = thangmoi - 1;
+                int yd = Convert.ToInt32(comboBox3.Text) ;
+
+                if (thangmoi==1)
+                {
+                    thangcu = 12;
+                    yd =yd - 1;
+                }
+                SqlCommand cmddd = new SqlCommand("SELECT * FROM HOADON WHERE MAPHG = '" + textBox1.Text + "' AND THANG = '" + thangcu + "' AND NAM = '" +yd + "'", conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmddd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
                 int csNuoc = Int32.Parse(textBox2.Text);
                 int csDien = Int32.Parse(textBox5.Text);
                 int giaNuoc = Int32.Parse(comboBox4.Text);
                 int giaDien = Int32.Parse(comboBox5.Text);
                 int tongtien = csNuoc * giaNuoc + csDien * giaDien;
                 int idphong = Int32.Parse(textBox1.Text);
-                switch (button)
+                if (dt != null)
                 {
-                    case "add":
-                        
-                        string query = "INSERT into HOADON VALUES ('" + textBox2.Text + "', '" + textBox5.Text + "', '" + comboBox1.Text + "', '" + comboBox3.Text + "', '" + tongtien + "', '" + textBox1.Text + "', '" + comboBox2.Text + "', '" + comboBox4.Text + "', '" + comboBox5.Text + "')";
-                        dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
-                        MessageBox.Show("Thêm thành công");
-                        
-                        show_Hoadon(idphong);
-                        Unable();
-                        button2.Enabled = true;
-                        button3.Visible = false;
-                        break;
-                    case "edit":
-                        
-                        query = "UPDATE HOADON SET CHISONUOC=" + textBox2.Text + ", CHISODIEN=" + textBox5.Text + " , THANG=" + comboBox1.Text + ", NAM=" + comboBox3.Text + " , TONGTIEN=" + tongtien + " , MAPHG=" + textBox1.Text + ", TINHTRANGHD='" + comboBox2.Text + "', GIANUOC="+ comboBox4.Text +", GIADIEN="+ comboBox5.Text +" WHERE MAHD=" + ID;
-                        dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
-                        dataGridView1.Enabled = true;
-                        show_Hoadon(idphong);
-                        Unable();
-                        button2.Enabled = true;
-                        button3.Visible = false;
-                        break;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        oldcsNuoc = dr["CHISONUOC"].ToString();
+                        oldcsDien = dr["CHISODIEN"].ToString();
+                        int csNuocc = Convert.ToInt32(oldcsNuoc);
+                        csNuoc = Int32.Parse(textBox2.Text) - csNuocc;
+                        int csDienn = Convert.ToInt32(oldcsDien);
+                        csDien = Int32.Parse(textBox5.Text) - csDienn;
+                        giaNuoc = Int32.Parse(comboBox4.Text);
+                        giaDien = Int32.Parse(comboBox5.Text);
+                        tongtien = csNuoc * giaNuoc + csDien * giaDien;
+                        idphong = Int32.Parse(textBox1.Text);
+                    }
+                }
+                if (tongtien < 0)
+                {
+                    MessageBox.Show("Nhập lại chỉ số điện, nước ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
-                button4.BringToFront();
-                dataGridView1.Enabled = true;
+                else
+                {
+                    switch (button)
+                    {
+                        case "add":
+
+                            string query = "INSERT into HOADON VALUES ('" + textBox2.Text + "', '" + textBox5.Text + "', '" + comboBox1.Text + "', '" + comboBox3.Text + "', '" + tongtien + "', '" + textBox1.Text + "', '" + comboBox2.Text + "', '" + comboBox4.Text + "', '" + comboBox5.Text + "')";
+                            dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+                            MessageBox.Show("Thêm thành công");
+
+                            show_Hoadon(idphong);
+                            Unable();
+                            button2.Enabled = true;
+                            button3.Visible = false;
+                            break;
+                        case "edit":
+
+                            query = "UPDATE HOADON SET CHISONUOC=" + textBox2.Text + ", CHISODIEN=" + textBox5.Text + " , THANG=" + comboBox1.Text + ", NAM=" + comboBox3.Text + " , TONGTIEN=" + tongtien + " , MAPHG=" + textBox1.Text + ", TINHTRANGHD='" + comboBox2.Text + "', GIANUOC=" + comboBox4.Text + ", GIADIEN=" + comboBox5.Text + " WHERE MAHD=" + ID;
+                            dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+                            dataGridView1.Enabled = true;
+                            show_Hoadon(idphong);
+                            Unable();
+                            button2.Enabled = true;
+                            button3.Visible = false;
+                            break;
+
+                    }
+                    button4.BringToFront();
+                    dataGridView1.Enabled = true;
+                }
+                conn.Close();
             }
+
         }
         public void ClearData()
         {
@@ -452,6 +511,90 @@ namespace qlktxserver
                 errorProviderHD.SetError(comboBox5, "");
             }
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //public void exportgridtopdf(DataGridView dgw, string filename)
+        //{
+        //    BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
+        //    PdfPTable pdftable = new PdfPTable(dgw.Columns.Count);
+        //    pdftable.DefaultCell.Padding = 3;
+        //    pdftable.WidthPercentage = 100;
+        //    pdftable.HorizontalAlignment = Element.ALIGN_LEFT;
+        //    pdftable.DefaultCell.BorderWidth = 1;
+
+        //    iTextSharp.text.Font text = new iTextSharp.text.Font(bf, 10, iTextSharp.text.Font.NORMAL);
+        //    foreach (DataGridViewColumn column in dgw.Columns)
+        //    {
+        //        PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, text));
+        //        cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+        //        pdftable.AddCell(cell);
+        //    }
+
+        //    foreach(DataGridViewRow row in dgw.Rows)
+        //    {
+        //        foreach (DataGridViewCell cell in row.Cells)
+        //        {
+        //            pdftable.AddCell(new Phrase(cell.Value.ToString(), text));
+        //        }
+        //    }
+        //    var savefiledialoge = new SaveFileDialog();
+        //    savefiledialoge.FileName = filename;
+        //    savefiledialoge.DefaultExt = ".pdf";
+        //    if (savefiledialoge.ShowDialog() == DialogResult.OK)
+        //    {
+        //        using (FileStream stream = new FileStream(savefiledialoge.FileName, FileMode.Create))
+        //        {
+        //            Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+        //            PdfWriter.GetInstance(pdfdoc, stream);
+        //            pdfdoc.Open();
+        //            pdfdoc.Add(pdftable);
+        //            stream.Close();
+        //        }
+        //    }
+
+        //}
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd= new SaveFileDialog () { Filter ="PDF file|*.pdf", ValidateNames = true})
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
+                    try
+                    {
+                        PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
+                        doc.Open();
+                        doc.Add(new iTextSharp.text.Paragraph("Hoa don da thanh toan"));
+                        doc.Add(new iTextSharp.text.Paragraph(comboBox1.Text));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                    finally
+                    {
+                        doc.Close();
+                    }
+                }
+            }
         }
     }
 }
