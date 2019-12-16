@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using qlktxserver;
 using System.Data.SqlClient;
 using QLKTX;
+using System.Configuration;
 
 namespace qlktxserver
 {
@@ -21,8 +22,9 @@ namespace qlktxserver
             InitializeComponent();
             butt_back.Visible = false;
             ID.Visible = false;
+
         }
-        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
         string UID = frmDangNhap.ID_User;
 
         private string id_per()
@@ -110,6 +112,25 @@ namespace qlktxserver
         {
             listper = List_per();
             Hienthi();
+            if (checkper("AD") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                butt_add.BackColor = Color.Silver;
+            }
+            if (checkper("DELET") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button2.BackColor = Color.Silver;
+
+            }
+            if (checkper("EDI") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                butt_update.BackColor = Color.Silver;
+            }
         }
         private Boolean checkper(string code)
         {
@@ -267,7 +288,7 @@ namespace qlktxserver
                     DialogResult DialogResult = MessageBox.Show("Bạn có chắc muốn xóa!", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     if (DialogResult == DialogResult.OK)
                     {
-                        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
                             conn.Open();
                             string kiemtra1 = string.Format("SELECT *FROM PHONG WHERE (MAPHG = {0} AND TONGSV =0)", textBox7.Text);
                             //string kiemtra2 = string.Format("SELECT *FROM PHONG WHERE MAPHG = {0}", textBox7.Text);
@@ -342,15 +363,23 @@ namespace qlktxserver
         }
         private void butt_sua_Click(object sender, EventArgs e)
         {
-            if (checkper("EDI") == true || ID.Text != "")
+            if (checkper("EDI") == true )
             {
-                //MessageBox.Show("Bạn có quyền sửa phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dataGridView1.Enabled = false;
-                Enable();
-                button = "edit";
-                button6.BringToFront();
-                butt_update.Enabled = false;
-                butt_back.Visible = true;
+                if (ID.Text != "")
+                {
+                    //MessageBox.Show("Bạn có quyền sửa phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridView1.Enabled = false;
+                    Enable();
+                    button = "edit";
+                    button6.BringToFront();
+                    butt_update.Enabled = false;
+                    butt_back.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn phòng để sửa ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Unable();
+                }
             }
             else
             {
@@ -467,7 +496,7 @@ namespace qlktxserver
             }
 
         }
-
+         
         private void TextBox2_Validating(object sender, CancelEventArgs e)
         {
             int num;
@@ -520,6 +549,11 @@ namespace qlktxserver
             {
                 errorProviderPhong.SetError(textBox7, "");
             }
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

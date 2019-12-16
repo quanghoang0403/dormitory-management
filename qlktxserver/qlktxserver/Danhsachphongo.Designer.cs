@@ -223,6 +223,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(441, 176);
             this.panel4.TabIndex = 60;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // label14
             // 
@@ -444,7 +445,7 @@
             this.butt_add.BackColor = System.Drawing.Color.Aqua;
             this.butt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.butt_add.Location = new System.Drawing.Point(1035, 26);
+            this.butt_add.Location = new System.Drawing.Point(1041, 26);
             this.butt_add.Name = "butt_add";
             this.butt_add.Size = new System.Drawing.Size(75, 45);
             this.butt_add.TabIndex = 6;
@@ -512,7 +513,7 @@
             this.button6.BackColor = System.Drawing.Color.Aqua;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(1035, 26);
+            this.button6.Location = new System.Drawing.Point(1041, 26);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 45);
             this.button6.TabIndex = 51;

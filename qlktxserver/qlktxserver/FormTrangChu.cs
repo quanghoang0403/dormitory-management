@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace QLKTX
 {
@@ -98,7 +99,7 @@ namespace QLKTX
                 sinhvien1.Visible = false;
                 danhsachphongo1.Visible = true;
                 tkb1.Visible = false;
-
+            thongke1.Visible = false;
         }
 
         private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,6 +109,7 @@ namespace QLKTX
             sinhvien1.Visible = false;
             danhsachphongo1.Visible = false;
             tkb1.Visible = false;
+            thongke1.Visible = false;
         }
 
         private void sinhViênToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,6 +119,7 @@ namespace QLKTX
             sinhvien1.Visible = true;
             danhsachphongo1.Visible = false;
             tkb1.Visible = false;
+            thongke1.Visible = false;
         }
 
         private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,7 +129,7 @@ namespace QLKTX
             sinhvien1.Visible = false;
             danhsachphongo1.Visible = false;
             tkb1.Visible = false;
-
+            thongke1.Visible = false;
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -140,7 +143,7 @@ namespace QLKTX
             danhsachphongo1.Visible = false;
             hoadon1.Visible = true;
             tkb1.Visible = false;
-           
+            thongke1.Visible = false;
         }
         private void FormTrangChu_Load(object sender, EventArgs e)
         {
@@ -171,7 +174,8 @@ namespace QLKTX
             sinhvien1.Visible = false;
             danhsachphongo1.Visible = false;
             hoadon1.Visible = false;
-            tkb1.Visible = false;
+            tkb1.Visible = true;
+            thongke1.Visible = false;
         }
 
         private void chat1_Load(object sender, EventArgs e)
@@ -201,6 +205,7 @@ namespace QLKTX
             danhsachphongo1.Visible = false;
             hoadon1.Visible = false;
             tkb1.Visible = false;
+            thongke1.Visible = false;
         }
 
         private void tkb1_Load(object sender, EventArgs e)
@@ -212,6 +217,18 @@ namespace QLKTX
         {
             frmDangKy FormDangKy = new frmDangKy();
             FormDangKy.Show();
+        }
+
+
+
+        private void thốngKêToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nhanvien1.Visible = false;
+            sinhvien1.Visible = false;
+            danhsachphongo1.Visible = false;
+            hoadon1.Visible = false;
+            tkb1.Visible = false;
+            thongke1.Visible = true;
         }
     }
 }
