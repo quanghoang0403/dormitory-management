@@ -137,5 +137,10 @@ namespace qLKTX.Control_UI
         {
 
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace qlktxserver
 {
@@ -24,13 +25,33 @@ namespace qlktxserver
         {
             string query = "SELECT * FROM dbo.SINHVIEN";
             dataGridView1.DataSource = DataProvider.Instance.ExecuteQuery(query);
+
+            if (checkper("ADD") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                butt_add.BackColor = Color.Silver;
+            }
+            if (checkper("DELETE") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                button3.BackColor = Color.Silver;
+
+            }
+            if (checkper("EDIT") == false)
+            {
+                //MessageBox.Show("Bạn có quyền thêm phòng ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Unable();
+                butt_update.BackColor = Color.Silver;
+            }
         }
-        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
         string UID = frmDangNhap.ID_User;
         private string id_per()
         {
             string id = "";
-
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
             try
             {
                 conn.Open();
@@ -66,6 +87,7 @@ namespace qlktxserver
         {
             string idper = id_per();
             List<string> termlist = new List<string>();
+          //  SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
             try
             {
                 conn.Open();
@@ -158,7 +180,7 @@ namespace qlktxserver
                 {
                     
                     case "add":
-                        SqlConnection conn2 = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                        SqlConnection conn2 = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
                         conn2.Open();
                         string kiemtra2 = string.Format("SELECT *FROM PHONG WHERE (MAPHG = {0} AND TONGSV < SLMAX) ", textBox3.Text);
                         SqlCommand cmd2 = new SqlCommand(kiemtra2, conn2);
@@ -246,7 +268,7 @@ namespace qlktxserver
                     DialogResult DialogResult = MessageBox.Show("Bạn có chắc muốn xóa!", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     if (DialogResult == DialogResult.OK)
                     {
-                        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-AAGVBOR\\SQLEXPRESS;Initial Catalog=QuanLyKTX;Integrated Security=True");
+                        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
                         try
                         {
                             conn.Open();
@@ -356,13 +378,20 @@ namespace qlktxserver
         {
             if (checkper("EDIT") == true )
             {
-                //MessageBox.Show("Bạn có quyền sửa sinh viên ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dataGridView1.Enabled = false;
-                Enable();
-                button = "edit";
-                butt_save.BringToFront();
-                butt_update.Enabled = false;
-                butt_back.Visible = true;
+                if (!string.IsNullOrEmpty(ID.Text))
+                {//MessageBox.Show("Bạn có quyền sửa sinh viên ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridView1.Enabled = false;
+                    Enable();
+                    button = "edit";
+                    butt_save.BringToFront();
+                    butt_update.Enabled = false;
+                    butt_back.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn sinh viên để sửa ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Unable();
+                }
             }
             else
             {
