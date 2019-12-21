@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -203,7 +203,7 @@ namespace qlktxserver
                         dataGridView1.Enabled = true;
                         butt_back.Visible = false;
                         butt_update.Enabled = true;
-
+                        butt_add.BringToFront();
                         break;
                     case "edit":
                         try

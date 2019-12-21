@@ -31,7 +31,7 @@ namespace qlktxserver
         private string id_per()
         {
             string id = "";
-
+           // SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
             try
             {
                 conn.Open();
@@ -67,6 +67,7 @@ namespace qlktxserver
         {
             string idper = id_per();
             List<string> termlist = new List<string>();
+            //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString);
             try
             {
                 conn.Open();
@@ -295,14 +296,14 @@ namespace qlktxserver
             {
                 int thangmoi = Convert.ToInt32(comboBox1.Text);
                 int thangcu = thangmoi - 1;
-                int yd = Convert.ToInt32(comboBox3.Text) ;
+                int yd = Convert.ToInt32(comboBox3.Text);
 
-                if (thangmoi==1)
+                if (thangmoi == 1)
                 {
                     thangcu = 12;
-                    yd =yd - 1;
+                    yd = yd - 1;
                 }
-                SqlCommand cmddd = new SqlCommand("SELECT * FROM HOADON WHERE MAPHG = '" + textBox1.Text + "' AND THANG = '" + thangcu + "' AND NAM = '" +yd + "'", conn);
+                SqlCommand cmddd = new SqlCommand("SELECT * FROM HOADON WHERE MAPHG = '" + textBox1.Text + "' AND THANG = '" + thangcu + "' AND NAM = '" + yd + "'", conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmddd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -571,29 +572,62 @@ namespace qlktxserver
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd= new SaveFileDialog () { Filter ="PDF file|*.pdf", ValidateNames = true})
+            Microsoft.Office.Interop.Excel.Application oexcel = new Microsoft.Office.Interop.Excel.Application();
+            var connectionString = ConfigurationManager.ConnectionStrings["QuanLyKTX"].ConnectionString;
+
+            SqlConnection conn = new SqlConnection(connectionString);
+            string query = "SELECT * FROM HOADON WHERE TINHTRANGHD='Da thanh toan'";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable db = new DataTable();
+            adapter.SelectCommand = cmd;
+            adapter.Fill(db);
+            try
             {
-                if (sfd.ShowDialog() == DialogResult.OK)
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                object misValue = System.Reflection.Missing.Value;
+                Microsoft.Office.Interop.Excel.Workbook obook = oexcel.Workbooks.Add(misValue);
+                Microsoft.Office.Interop.Excel.Worksheet osheet = new Microsoft.Office.Interop.Excel.Worksheet();
+
+
+                //  obook.Worksheets.Add(misValue);
+
+                osheet = (Microsoft.Office.Interop.Excel.Worksheet)obook.Sheets["Sheet1"];
+                int colIndex = 0;
+                int rowIndex = 1;
+
+                foreach (DataColumn dc in db.Columns)
                 {
-                    iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
-                    try
-                    {
-                        PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
-                        doc.Open();
-                        doc.Add(new iTextSharp.text.Paragraph("Hoa don da thanh toan"));
-                        doc.Add(new iTextSharp.text.Paragraph(comboBox1.Text));
+                    colIndex++;
+                    osheet.Cells[1, colIndex] = dc.ColumnName;
+                }
+                foreach (DataRow dr in db.Rows)
+                {
+                    rowIndex++;
+                    colIndex = 0;
 
-                    }
-                    catch (Exception ex)
+                    foreach (DataColumn dc in db.Columns)
                     {
-                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    }
-                    finally
-                    {
-                        doc.Close();
+                        colIndex++;
+                        osheet.Cells[rowIndex, colIndex] = dr[dc.ColumnName];
                     }
                 }
+
+                osheet.Columns.AutoFit();
+                string filepath = "D:\\hoc\\Book1";
+
+                //Release and terminate excel
+
+                obook.SaveAs(filepath);
+                obook.Close();
+                oexcel.Quit();
+
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                oexcel.Quit();
+
             }
         }
     }
