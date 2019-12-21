@@ -26,7 +26,6 @@ namespace qlktxserver
         private string id_per()
         {
             string id = "";
-
             try
             {
                 conn.Open();
@@ -304,7 +303,7 @@ namespace qlktxserver
                         Unable();
                         dataGridView1.Enabled = true;
                         butt_update.Enabled = true;
-
+                        butt_back.Visible = false;
                         break;
                     case "edit":
                         query = "UPDATE NHANVIEN SET TENNV='"+textBox3.Text +"', GIOITINH='"+comboBox3.Text + "' , NGAYSINH='" + dateTimePicker1.Text + "', SDTNV='" + textBox4.Text + "' , QUEQUAN='" + textBox5.Text + "' , NGAYVAOLAM='" + dateTimePicker2.Text + "', CHUCVU='" + comboBox1.Text + "' WHERE MANV="+ ID.Text;
