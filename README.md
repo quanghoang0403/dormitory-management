@@ -1,4 +1,4 @@
-# Phần mềm Quản lí Kí túc xá
+# Phần mềm Quản lý Ký túc xá
 ## Thông tin thành viên nhóm
 - Đinh Quang Hoàng - 18520282 (master) 
 - Trần Phương Duy  - 18520038 (feature)
